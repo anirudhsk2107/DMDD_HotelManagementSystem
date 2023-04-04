@@ -4,12 +4,12 @@ IF EXISTS (SELECT name FROM sys.databases WHERE name = N'hotelManagement')
 GO
 
 CREATE DATABASE [hotelManagement]
-go
+GO
 USE [hotelManagement]
 GO
 
 CREATE TABLE [dbo].[hotel](
-	[hotel_id] [int] NOT NULL,
+	[hotel_id] [int] NOT NULL IDENTITY(1,1),
 	[hotel_name] [varchar](25) NOT NULL,
 	[hotel_address] [varchar](50) NOT NULL,
     [hotel_mail] [varchar](50) NULL,
@@ -22,9 +22,10 @@ CREATE TABLE [dbo].[hotel](
 GO
 
 CREATE TABLE [dbo].[staff](
-    [staff_id] [int] NOT NULL,
+    [staff_id] [int] NOT NULL IDENTITY(1,1),
     [staff_ssn] [varchar](10) NOT NULL,
     [staff_name] [varchar](25) NOT NULL,
+    [staff_dob] [date] NOT NULL,
     [staff_designation] [varchar](20) NOT NULL,
     [staff_contact] [varchar](10) NULL,
     [staff_address] [varchar](50) NULL,
@@ -45,7 +46,7 @@ GO
 
 
 CREATE TABLE [dbo].[event](
-    [event_id] [int] NOT NULL,
+    [event_id] [int] NOT NULL IDENTITY(1,1),
     [event_name] [varchar](25) NOT NULL,
     [event_date] [date] NOT NULL,
     [event_location] [varchar](50) NULL,
@@ -65,7 +66,7 @@ ALTER TABLE [dbo].[event] CHECK CONSTRAINT [foreign_event]
 GO
 
 CREATE TABLE [dbo].[customer](
-    [customer_id] [int] NOT NULL,
+    [customer_id] [int] NOT NULL IDENTITY(1,1),
     [customer_ssn] [varchar](10) NULL,
     [customer_name] [varchar](25) NOT NULL,
     [customer_contact] [varchar](10) NULL,
@@ -78,7 +79,7 @@ CREATE TABLE [dbo].[customer](
 GO
 
 CREATE TABLE [dbo].[room_type](
-    [room_type_id] [int] NOT NULL,
+    [room_type_id] [int] NOT NULL IDENTITY(1,1),
     [price] [int] NOT NULL,
     [description] [varchar](50) NULL
     CONSTRAINT [prim_room_type] PRIMARY KEY CLUSTERED
@@ -89,7 +90,7 @@ CREATE TABLE [dbo].[room_type](
 GO
 
 CREATE TABLE [dbo].[amenity](
-    [amenity_id] [int] NOT NULL,
+    [amenity_id] [int] NOT NULL IDENTITY(1,1),
     [amenity] [varchar](50) NULL
     CONSTRAINT [prim_amenity] PRIMARY KEY CLUSTERED
 (
@@ -99,7 +100,7 @@ CREATE TABLE [dbo].[amenity](
 GO
 
 CREATE TABLE [dbo].[room_type_amenity](
-    [room_type_amenity_id] [int] NOT NULL,
+    [room_type_amenity_id] [int] NOT NULL IDENTITY(1,1),
     [amenity_id] [int] NOT NULL,
     [room_type_id] [int] NOT NULL
     CONSTRAINT [prim_room_type_amenity] PRIMARY KEY CLUSTERED
@@ -123,7 +124,7 @@ GO
 
 
 CREATE TABLE [dbo].[room](
-    [room_id] [int] NOT NULL,
+    [room_id] [int] NOT NULL IDENTITY(1,1),
     [room_number] [int] NOT NULL,
     [availability] [bit] NOT NULL,
     [room_type_id] [int] NOT NULL,
@@ -149,7 +150,7 @@ GO
 
 
 CREATE TABLE [dbo].[reservation](
-    [reservation_id] [int] NOT NULL,
+    [reservation_id] [int] NOT NULL IDENTITY(1,1),
     [check_in] [date] NOT NULL,
     [check_out] [date] NOT NULL,
     [duration] [int] NOT NULL,
@@ -177,7 +178,7 @@ GO
 
 
 CREATE TABLE [dbo].[reservation_room](
-    [reservation_room_id] [int] NOT NULL,
+    [reservation_room_id] [int] NOT NULL IDENTITY(1,1),
     [reservation_id] [int] NOT NULL,
     [room_id] [int] NOT NULL,
     [status] [bit] NOT NULL
@@ -201,7 +202,7 @@ ALTER TABLE [dbo].[reservation_room] CHECK CONSTRAINT [foreign_room]
 GO
 
 CREATE TABLE [dbo].[payment](
-    [payment_id] [int] NOT NULL,
+    [payment_id] [int] NOT NULL IDENTITY(1,1),
     [payment_date] [date] NOT NULL,
     [payment_method] [varchar](10) NOT NULL,
     [reservation_id] [int] NOT NULL
@@ -219,7 +220,7 @@ ALTER TABLE [dbo].[payment] CHECK CONSTRAINT [foreign_payment_reservation]
 GO
 
 CREATE TABLE [dbo].[transaction](
-    [transaction_id] [int] NOT NULL,
+    [transaction_id] [int] NOT NULL IDENTITY(1,1),
     [transaction_name] [varchar](10) NOT NULL,
     [transaction_date] [date] NOT NULL,
     [transaction_amount] [int] NOT NULL,
