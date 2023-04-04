@@ -118,16 +118,16 @@ INSERT INTO reservation (check_in, check_out, reservation_date, customer_id, hot
 INSERT INTO reservation (check_in, check_out, reservation_date, customer_id, hotel_id) VALUES ('2024-05-10', '2024-05-12', '2023-07-25', 6, 3);
 
 -- RESERVATION ROOM INSERT
-INSERT INTO reservation_room(reservation_id, room_id, [status]) VALUES  (1, 101, 1);
-INSERT INTO reservation_room(reservation_id, room_id, [status]) VALUES  (1, 102, 1);
-INSERT INTO reservation_room(reservation_id, room_id, [status]) VALUES  (2, 201, 1);
-INSERT INTO reservation_room(reservation_id, room_id, [status]) VALUES  (2, 202, 1);
-INSERT INTO reservation_room(reservation_id, room_id, [status]) VALUES  (3, 301, 1);
-INSERT INTO reservation_room(reservation_id, room_id, [status]) VALUES  (3, 302, 1);
-INSERT INTO reservation_room(reservation_id, room_id, [status]) VALUES  (4, 401, 1);
-INSERT INTO reservation_room(reservation_id, room_id, [status]) VALUES  (4, 402, 1);
-INSERT INTO reservation_room(reservation_id, room_id, [status]) VALUES  (5, 501, 1);
-INSERT INTO reservation_room(reservation_id, room_id, [status]) VALUES  (5, 502, 1);
+INSERT INTO reservation_room (room_id, [status]) VALUES (101, 1);
+INSERT INTO reservation_room (room_id, [status]) VALUES (102, 1);
+INSERT INTO reservation_room (room_id, [status]) VALUES (201, 1);
+INSERT INTO reservation_room (room_id, [status]) VALUES (202, 1);
+INSERT INTO reservation_room (room_id, [status]) VALUES (301, 1);
+INSERT INTO reservation_room (room_id, [status]) VALUES (302, 1);
+INSERT INTO reservation_room (room_id, [status]) VALUES (401, 1);
+INSERT INTO reservation_room (room_id, [status]) VALUES (402, 1);
+INSERT INTO reservation_room (room_id, [status]) VALUES (501, 1);
+INSERT INTO reservation_room (room_id, [status]) VALUES (502, 1);
 
 
 -- PAYMENT
