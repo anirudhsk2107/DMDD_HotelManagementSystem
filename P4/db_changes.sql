@@ -26,7 +26,7 @@ CREATE TABLE [dbo].[staff](
     [staff_ssn] [varchar](10) NOT NULL,
     [staff_name] [varchar](25) NOT NULL,
     [staff_dob] [date] NOT NULL,
-    [staff_designation] [varchar](20) NOT NULL,
+    [staff_designation] [varchar](25) NOT NULL,
     [staff_contact] [varchar](10) NULL,
     [staff_address] [varchar](50) NULL,
     [staff_hiring_date] [date] NULL,
@@ -153,7 +153,7 @@ CREATE TABLE [dbo].[reservation](
     [reservation_id] [int] NOT NULL IDENTITY(1,1),
     [check_in] [date] NOT NULL,
     [check_out] [date] NOT NULL,
-    [duration] [int] NOT NULL,
+    [duration] [int],
     [reservation_date] [date] NOT NULL,
     [customer_id] [int] NOT NULL,
     [hotel_id] [int] NOT NULL
@@ -221,7 +221,7 @@ GO
 
 CREATE TABLE [dbo].[transaction](
     [transaction_id] [int] NOT NULL IDENTITY(1,1),
-    [transaction_name] [varchar](10) NOT NULL,
+    [transaction_name] [varchar](50) NOT NULL,
     [transaction_date] [date] NOT NULL,
     [transaction_amount] [int] NOT NULL,
     [payment_id] [int] NOT NULL
