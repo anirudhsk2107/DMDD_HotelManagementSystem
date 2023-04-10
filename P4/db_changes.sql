@@ -29,7 +29,7 @@ CREATE TABLE [dbo].[staff](
     [staff_designation] [varchar](25) NOT NULL,
     [staff_contact] [varchar](10) NULL,
     [staff_address] [varchar](50) NULL,
-    [staff_hiring_date] [date] NULL,
+    [staff_hiring_date] [date] NOT NULL,
     [hotel_id] [int] NOT NULL
  CONSTRAINT [prim_staff] PRIMARY KEY CLUSTERED
 (
@@ -43,6 +43,13 @@ REFERENCES [dbo].[hotel] ([hotel_id])
 GO
 ALTER TABLE [dbo].[staff] CHECK CONSTRAINT [foreign_staff]
 GO
+
+-- Added constarint on dob so that employee should be greater than 18 
+ALTER TABLE [dbo].[staff] WITH CHECK ADD CONSTRAINT [staff_dob_18_plus] CHECK 
+(
+    [staff_dob] IS NOT NULL AND DATEDIFF(year, staff_dob, GETDATE()) >= 14
+
+)
 
 
 CREATE TABLE [dbo].[event](
@@ -71,12 +78,19 @@ CREATE TABLE [dbo].[customer](
     [customer_name] [varchar](25) NOT NULL,
     [customer_contact] [varchar](10) NULL,
     [customer_address] [varchar](50) NULL,
+    [customer_age] DATE NOT NULL
  CONSTRAINT [prim_customer] PRIMARY KEY CLUSTERED
 (
     [customer_id] ASC
 ) 
 ) ON [PRIMARY]
 GO
+
+-- Added constarint for the user to be 18years above for booking
+ALTER TABLE [dbo].[customer] WITH CHECK ADD CONSTRAINT [customer_age_over_18] CHECK
+(
+    DATEDIFF(year, [customer_age], GETDATE()) >= 18
+)
 
 CREATE TABLE [dbo].[room_type](
     [room_type_id] [int] NOT NULL IDENTITY(1,1),
@@ -169,6 +183,12 @@ REFERENCES [dbo].[hotel] ([hotel_id])
 GO
 ALTER TABLE [dbo].[reservation] CHECK CONSTRAINT [foreign_reservation_hotel]
 GO
+
+-- Check constarint to limit checkin duration to be more than or equal to 1 day
+ALTER TABLE [dbo].[reservation] WITH CHECK ADD CONSTRAINT [check_in_check_out_limit] CHECK 
+(
+    DATEDIFF(day, [check_in], [check_out]) >= 1
+)
 
 ALTER TABLE [dbo].[reservation]  WITH CHECK ADD  CONSTRAINT [foreign_customer] FOREIGN KEY([customer_id])
 REFERENCES [dbo].[customer] ([customer_id])

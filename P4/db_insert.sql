@@ -33,19 +33,19 @@ INSERT INTO event (event_name, event_date, event_location, event_length, hotel_i
 
 
 -- INSERT CUSTOMER TABLE
-INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address) VALUES ('123456789', 'John Doe', '9876543210', '123 Main St, Anytown USA');
-INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address) VALUES ('234567890', 'Jane Smith', '9876543211', '456 Oak Ave, Anytown USA');
-INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address) VALUES ('345678901', 'David Lee', '9876543212', '789 Elm St, Anytown USA');
-INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address) VALUES ('456789012', 'Mary Johnson', '9876543213', '321 Pine St, Anytown USA');
-INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address) VALUES ('567890123', 'Chris Brown', '9876543214', '654 Cedar Ln, Anytown USA');
-INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address) VALUES ('678901234', 'Amanda Smith', '9876543215', '987 Maple St, Anytown USA');
-INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address) VALUES ('789012345', 'Robert Johnson', '9876543216', '654 Oak St, Anytown USA');
-INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address) VALUES ('890123456', 'Linda Davis', '9876543217', '321 Maple Ave, Anytown USA');
-INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address) VALUES ('901234567', 'Tom Wilson', '9876543218', '456 Elm St, Anytown USA');
-INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address) VALUES ('012345678', 'Sarah Lee', '9876543219', '789 Pine Ln, Anytown USA');
-INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address) VALUES ('123456789', 'John Smith', '9876543220', '456 Cedar St, Anytown USA');
-INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address) VALUES ('234567890', 'Karen Johnson', '9876543221', '123 Elm St, Anytown USA');
-INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address) VALUES ('345678901', 'Mark Davis', '9876543222', '789 Oak St, Anytown USA');
+INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('123456789', 'John Doe', '9876543210', '123 Main St, Anytown USA', '1996-08-01');
+INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('234567890', 'Jane Smith', '9876543211', '456 Oak Ave, Anytown USA', '1996-08-01');
+INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('345678901', 'David Lee', '9876543212', '789 Elm St, Anytown USA', '1996-08-01');
+INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('456789012', 'Mary Johnson', '9876543213', '321 Pine St, Anytown USA', '1996-08-01');
+INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('567890123', 'Chris Brown', '9876543214', '654 Cedar Ln, Anytown USA', '1996-08-01');
+INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('678901234', 'Amanda Smith', '9876543215', '987 Maple St, Anytown USA', '1996-08-01');
+INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('789012345', 'Robert Johnson', '9876543216', '654 Oak St, Anytown USA', '1996-08-01');
+INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('890123456', 'Linda Davis', '9876543217', '321 Maple Ave, Anytown USA', '1996-08-01');
+INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('901234567', 'Tom Wilson', '9876543218', '456 Elm St, Anytown USA', '1996-08-01');
+INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('012345678', 'Sarah Lee', '9876543219', '789 Pine Ln, Anytown USA', '1996-08-01');
+INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('123456789', 'John Smith', '9876543220', '456 Cedar St, Anytown USA', '1996-08-01');
+INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('234567890', 'Karen Johnson', '9876543221', '123 Elm St, Anytown USA', '1996-08-01');
+INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('345678901', 'Mark Davis', '9876543222', '789 Oak St, Anytown USA', '1996-08-01');
 
 -- INSERT ROOM TYPE
 INSERT INTO room_type (price, [description]) VALUES (100, 'Single Room');
