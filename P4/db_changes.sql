@@ -190,6 +190,11 @@ ALTER TABLE [dbo].[reservation] WITH CHECK ADD CONSTRAINT [check_in_check_out_li
     DATEDIFF(day, [check_in], [check_out]) >= 1
 )
 
+ALTER TABLE [dbo].[reservation] WITH CHECK ADD CONSTRAINT [reservation_date_restriction] CHECK 
+(
+    DATEDIFF(day, [reservation_date], [check_in]) >=0
+)
+
 ALTER TABLE [dbo].[reservation]  WITH CHECK ADD  CONSTRAINT [foreign_customer] FOREIGN KEY([customer_id])
 REFERENCES [dbo].[customer] ([customer_id])
 GO
