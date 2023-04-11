@@ -281,7 +281,18 @@ GO
 ALTER TABLE [dbo].[transaction] CHECK CONSTRAINT [foreign_payment]
 GO
 
+-- User Defined Function
 
+CREATE FUNCTION calculateDuration (@date1 DATE , @date2 DATE)
+RETURNS INT 
+AS
+BEGIN 
+    DECLARE @diff INT
+    SET @diff = DATEDIFF(day, @date1, @date2)
+    RETURN @diff
+END
+
+GO
 -- TRIGGERS -- 
 
 CREATE TRIGGER active_customers_in_hotel_update ON
@@ -308,6 +319,10 @@ AS
     IF @reservation_status = 'CHECKED_IN'
         UPDATE hotel SET active_customers = active_customers + 1 WHERE hotel.hotel_id = @hotelId;
 
+    UPDATE reservation SET duration=dbo.calculateDuration(
+        (SELECT check_in FROM INSERTED), 
+        (SELECT check_out FROM INSERTED)
+    ) WHERE reservation_id = (SELECT reservation_id FROM INSERTED);
 GO
 
 -- STORED PROCEDURES --
@@ -365,3 +380,8 @@ BEGIN
         )
       AND ((@room_type_id is NULL) OR (r.room_type_id = @room_type_id))
 END
+
+GO
+
+
+
