@@ -13,7 +13,8 @@ CREATE TABLE [dbo].[hotel](
 	[hotel_name] [varchar](25) NOT NULL,
 	[hotel_address] [varchar](50) NOT NULL,
     [hotel_mail] [varchar](50) NULL,
-    [hotel_mobile] [varchar] (10) NULL
+    [hotel_mobile] [varchar] (10) NULL,
+    [active_customers] [int] DEFAULT 0 
  CONSTRAINT [prim_hotel] PRIMARY KEY CLUSTERED 
 (
     [hotel_id] ASC
@@ -170,7 +171,8 @@ CREATE TABLE [dbo].[reservation](
     [duration] [int],
     [reservation_date] [date] NOT NULL,
     [customer_id] [int] NOT NULL,
-    [hotel_id] [int] NOT NULL
+    [hotel_id] [int] NOT NULL,
+    [reservation_status] [varchar] (15) NULL
     CONSTRAINT [prim_reservation] PRIMARY KEY CLUSTERED
 (
     [reservation_id] ASC
@@ -183,6 +185,12 @@ REFERENCES [dbo].[hotel] ([hotel_id])
 GO
 ALTER TABLE [dbo].[reservation] CHECK CONSTRAINT [foreign_reservation_hotel]
 GO
+
+
+ALTER TABLE [dbo].[reservation] WITH CHECK ADD CONSTRAINT [reservation_status] CHECK 
+(
+    [reservation].[reservation_status] IN ('CHECKED_IN', 'CHECKED_OUT')
+)
 
 -- Check constarint to limit checkin duration to be more than or equal to 1 day
 ALTER TABLE [dbo].[reservation] WITH CHECK ADD CONSTRAINT [check_in_check_out_limit] CHECK 
@@ -261,4 +269,18 @@ ALTER TABLE [dbo].[transaction]  WITH CHECK ADD  CONSTRAINT [foreign_payment] FO
 REFERENCES [dbo].[payment] ([payment_id])
 GO
 ALTER TABLE [dbo].[transaction] CHECK CONSTRAINT [foreign_payment]
+GO
+
+CREATE TRIGGER active_customers_in_hotel ON
+[dbo].[reservation] FOR UPDATE 
+AS 
+    DECLARE @reservation_status AS VARCHAR(15)
+    SELECT @reservation_status =  (SELECT reservation_status from INSERTED);
+    DECLARE @hotelId AS INT 
+    SELECT @hotelId = (SELECT hotel_id from INSERTED);
+    IF @reservation_status = 'CHECKED_IN'
+        UPDATE hotel SET active_customers = active_customers + 1 WHERE hotel.hotel_id = @hotelId;
+    IF @reservation_status = 'CHECKED_OUT'
+        UPDATE hotel SET active_customers = active_customers - 1 WHERE hotel.hotel_id = @hotelId;
+
 GO

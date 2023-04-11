@@ -117,6 +117,7 @@ INSERT INTO reservation (check_in, check_out, reservation_date, customer_id, hot
 INSERT INTO reservation (check_in, check_out, reservation_date, customer_id, hotel_id) VALUES ('2024-04-15', '2024-04-19', '2023-07-18', 3, 2);
 INSERT INTO reservation (check_in, check_out, reservation_date, customer_id, hotel_id) VALUES ('2024-05-10', '2024-05-12', '2023-07-25', 6, 3);
 
+
 -- RESERVATION ROOM INSERT
 INSERT INTO reservation_room (reservation_id, room_id, [status]) VALUES (1, 1, 1);
 INSERT INTO reservation_room (reservation_id, room_id, [status]) VALUES (3, 2, 1);
