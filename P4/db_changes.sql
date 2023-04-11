@@ -23,6 +23,8 @@ CREATE TABLE [dbo].[hotel](
 ) ON [PRIMARY]
 GO
 
+CREATE NONCLUSTERED INDEX hotel_name_indexN ON hotel(hotel_name ASC);
+
 CREATE TABLE [dbo].[staff](
     [staff_id] [int] NOT NULL IDENTITY(1,1),
     [staff_ssn] [varchar](10) NOT NULL,
@@ -164,6 +166,7 @@ GO
 ALTER TABLE [dbo].[room] CHECK CONSTRAINT [foreign_room_room_type]
 GO
 
+CREATE NONCLUSTERED INDEX room_number_indexN ON room (room_number ASC)
 
 CREATE TABLE [dbo].[reservation](
     [reservation_id] [int] NOT NULL IDENTITY(1,1),
@@ -186,6 +189,10 @@ REFERENCES [dbo].[hotel] ([hotel_id])
 GO
 ALTER TABLE [dbo].[reservation] CHECK CONSTRAINT [foreign_reservation_hotel]
 GO
+
+CREATE NONCLUSTERED INDEX check_in_indexN ON reservation (check_in ASC)
+
+CREATE NONCLUSTERED INDEX check_out_indexN ON reservation (check_out ASC)
 
 
 ALTER TABLE [dbo].[reservation] WITH CHECK ADD CONSTRAINT [reservation_status] CHECK 
@@ -253,6 +260,8 @@ GO
 ALTER TABLE [dbo].[payment] CHECK CONSTRAINT [foreign_payment_reservation]
 GO
 
+CREATE NONCLUSTERED INDEX payment_method_indexN ON payment (payment_method ASC);
+
 CREATE TABLE [dbo].[transaction](
     [transaction_id] [int] NOT NULL IDENTITY(1,1),
     [transaction_name] [varchar](50) NOT NULL,
@@ -275,7 +284,7 @@ GO
 
 -- TRIGGERS -- 
 
-CREATE TRIGGER active_customers_in_hotel ON
+CREATE TRIGGER active_customers_in_hotel_update ON
 [dbo].[reservation] FOR UPDATE 
 AS 
     DECLARE @reservation_status AS VARCHAR(15)
@@ -286,6 +295,18 @@ AS
         UPDATE hotel SET active_customers = active_customers + 1 WHERE hotel.hotel_id = @hotelId;
     IF @reservation_status = 'CHECKED_OUT'
         UPDATE hotel SET active_customers = active_customers - 1 WHERE hotel.hotel_id = @hotelId;
+
+GO
+
+CREATE TRIGGER active_customers_in_hotel_insert ON
+[dbo].[reservation] FOR INSERT 
+AS 
+    DECLARE @reservation_status AS VARCHAR(15)
+    SELECT @reservation_status =  (SELECT reservation_status from INSERTED);
+    DECLARE @hotelId AS INT 
+    SELECT @hotelId = (SELECT hotel_id from INSERTED);
+    IF @reservation_status = 'CHECKED_IN'
+        UPDATE hotel SET active_customers = active_customers + 1 WHERE hotel.hotel_id = @hotelId;
 
 GO
 
@@ -307,6 +328,7 @@ BEGIN
     GROUP BY htl.hotel_name;
 END
 
+GO
 
 CREATE PROCEDURE [dbo].[sp_GetCustomerReservationHistory]
     @customer_id AS INT
@@ -323,6 +345,7 @@ BEGIN
     WHERE r.customer_id = @customer_id
 END
 
+GO
 
 CREATE PROCEDURE sp_GetAvailableRooms
     @checkin_date DATE,
