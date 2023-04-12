@@ -82,7 +82,7 @@ GO
 
 CREATE TABLE [dbo].[customer](
     [customer_id] [int] NOT NULL IDENTITY(1,1),
-    [customer_ssn] [varchar](10) NULL,
+    [customer_ssn] [varbinary](max) NOT NULL,
     [customer_name] [varchar](25) NOT NULL,
     [customer_contact] [varchar](10) NULL,
     [customer_address] [varchar](50) NULL,

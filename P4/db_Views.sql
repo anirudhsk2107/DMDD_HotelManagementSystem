@@ -2,6 +2,8 @@ USE [hotelManagement];
 
 GO
 
+CREATE VIEW vw_GetAvailableRooms
+AS
 SELECT h.hotel_id, h.hotel_name, r.room_number, c.customer_name
 FROM hotel h
 JOIN room r ON  r.hotel_id = h.hotel_id

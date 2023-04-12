@@ -48,3 +48,22 @@ BEGIN
 
     CLOSE SYMMETRIC KEY SsnKey;
 END
+GO
+
+
+CREATE TRIGGER insert_customer_details 
+ON [dbo].[customer] 
+AFTER INSERT
+AS
+BEGIN
+    OPEN SYMMETRIC KEY SsnKey  
+        DECRYPTION BY PASSWORD = 'SsnTest2@';
+    
+    UPDATE [dbo].[customer]
+    SET customer_ssn = EncryptByKey(Key_GUID('SsnKey'), inserted.customer_ssn)
+    FROM [dbo].[customer]
+    INNER JOIN inserted ON inserted.customer_id = [dbo].[customer].customer_id;
+
+    CLOSE SYMMETRIC KEY SsnKey;
+END
+GO

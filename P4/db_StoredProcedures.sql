@@ -64,3 +64,23 @@ BEGIN
     CLOSE SYMMETRIC KEY SsnKey;;
 END;
 GO
+
+
+CREATE PROCEDURE sp_getCustomerDetails 
+    @customerId INT = NULL
+AS 
+BEGIN
+    OPEN SYMMETRIC KEY SsnKey
+        DECRYPTION BY PASSWORD = 'SsnTest2@';
+
+    SELECT c.customer_id, 
+        c.customer_name, 
+        RIGHT(CONVERT(VARCHAR(MAX), DecryptByKey(c.customer_ssn)), 4) AS ssn, 
+        c.customer_address, 
+        c.customer_contact 
+    FROM [dbo].[Customer] c
+    WHERE ((@customerId is NULL) OR (@customerId IS NOT NULL AND c.customer_id = @customerId))
+
+    CLOSE SYMMETRIC KEY SsnKey;;
+END;
+GO
