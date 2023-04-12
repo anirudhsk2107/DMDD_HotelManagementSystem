@@ -1,3 +1,7 @@
+USE [hotelManagement];
+
+GO
+
 CREATE PROCEDURE sp_CalcuateRevenue
   @startDate DATE,
   @endDate DATE

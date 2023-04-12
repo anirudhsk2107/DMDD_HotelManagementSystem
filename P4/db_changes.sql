@@ -297,3 +297,15 @@ BEGIN
 END
 
 GO
+
+CREATE FUNCTION getHotelNameByHotelId (@hotelId INT)
+RETURNS VARCHAR(25)
+AS
+BEGIN 
+    DECLARE @hotelName VARCHAR(25)
+    SET @hotelName = ( SELECT h.hotel_name FROM [dbo].[hotel] AS h where h.hotel_id=@hotelId)
+    RETURN @hotelName
+END
+
+GO
+

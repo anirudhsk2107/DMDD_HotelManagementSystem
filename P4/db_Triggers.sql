@@ -1,3 +1,7 @@
+USE [hotelManagement];
+
+GO
+
 CREATE TRIGGER active_customers_in_hotel_update ON
 [dbo].[reservation] FOR UPDATE 
 AS 
