@@ -6,7 +6,12 @@ GO
 CREATE DATABASE [hotelManagement]
 GO
 USE [hotelManagement]
-GO
+GO    
+
+-- SYMMETRIC KEY -- 
+CREATE SYMMETRIC KEY SsnKey  
+    WITH ALGORITHM = AES_256  
+    ENCRYPTION BY PASSWORD = 'SsnTest2@'; 
 
 -- CREATE TABLE --
 CREATE TABLE [dbo].[hotel](
@@ -27,7 +32,7 @@ CREATE NONCLUSTERED INDEX hotel_name_indexN ON hotel(hotel_name ASC);
 
 CREATE TABLE [dbo].[staff](
     [staff_id] [int] NOT NULL IDENTITY(1,1),
-    [staff_ssn] [varchar](10) NOT NULL,
+    [staff_ssn] [varbinary](max) NOT NULL,
     [staff_name] [varchar](25) NOT NULL,
     [staff_dob] [date] NOT NULL,
     [staff_designation] [varchar](25) NOT NULL,
@@ -52,7 +57,6 @@ GO
 ALTER TABLE [dbo].[staff] WITH CHECK ADD CONSTRAINT [staff_dob_18_plus] CHECK 
 (
     [staff_dob] IS NOT NULL AND DATEDIFF(year, staff_dob, GETDATE()) >= 14
-
 )
 
 
@@ -293,95 +297,3 @@ BEGIN
 END
 
 GO
--- TRIGGERS -- 
-
-CREATE TRIGGER active_customers_in_hotel_update ON
-[dbo].[reservation] FOR UPDATE 
-AS 
-    DECLARE @reservation_status AS VARCHAR(15)
-    SELECT @reservation_status =  (SELECT reservation_status from INSERTED);
-    DECLARE @hotelId AS INT 
-    SELECT @hotelId = (SELECT hotel_id from INSERTED);
-    IF @reservation_status = 'CHECKED_IN'
-        UPDATE hotel SET active_customers = active_customers + 1 WHERE hotel.hotel_id = @hotelId;
-    IF @reservation_status = 'CHECKED_OUT'
-        UPDATE hotel SET active_customers = active_customers - 1 WHERE hotel.hotel_id = @hotelId;
-
-GO
-
-CREATE TRIGGER active_customers_in_hotel_insert ON
-[dbo].[reservation] FOR INSERT 
-AS 
-    DECLARE @reservation_status AS VARCHAR(15)
-    SELECT @reservation_status =  (SELECT reservation_status from INSERTED);
-    DECLARE @hotelId AS INT 
-    SELECT @hotelId = (SELECT hotel_id from INSERTED);
-    IF @reservation_status = 'CHECKED_IN'
-        UPDATE hotel SET active_customers = active_customers + 1 WHERE hotel.hotel_id = @hotelId;
-
-    UPDATE reservation SET duration=dbo.calculateDuration(
-        (SELECT check_in FROM INSERTED), 
-        (SELECT check_out FROM INSERTED)
-    ) WHERE reservation_id = (SELECT reservation_id FROM INSERTED);
-GO
-
--- STORED PROCEDURES --
-
-CREATE PROCEDURE sp_CalcuateRevenue
-  @startDate DATE,
-  @endDate DATE
-AS
-BEGIN
-    SELECT htl.hotel_name, SUM(trn.transaction_amount) AS total_revenue
-    FROM Reservation res
-    JOIN Reservation_Room room ON res.reservation_id = room.reservation_id
-    JOIN payment pay ON res.reservation_id = pay.reservation_id
-    JOIN [Transaction] trn ON trn.payment_id = pay.payment_id
-    JOIN Hotel htl ON htl.hotel_id = res.hotel_id
-    WHERE res.check_in >= @startDate 
-      AND res.check_out <= @endDate
-    GROUP BY htl.hotel_name;
-END
-
-GO
-
-CREATE PROCEDURE [dbo].[sp_GetCustomerReservationHistory]
-    @customer_id AS INT
-AS
-BEGIN
-    SELECT r.reservation_id, r.check_in, r.check_out, r.reservation_date, h.hotel_name, rt.[description], a.amenity, ro.room_number
-    FROM reservation r
-    JOIN hotel h ON r.hotel_id = h.hotel_id
-    JOIN reservation_room rr ON r.reservation_id = rr.reservation_id
-    JOIN room ro ON rr.room_id = ro.room_id
-    JOIN room_type rt ON ro.room_type_id = rt.room_type_id
-    LEFT JOIN room_type_amenity rta ON rt.room_type_id = rta.room_type_id
-    LEFT JOIN amenity a ON rta.amenity_id = a.amenity_id
-    WHERE r.customer_id = @customer_id
-END
-
-GO
-
-CREATE PROCEDURE sp_GetAvailableRooms
-    @checkin_date DATE,
-    @checkout_date DATE,
-    @room_type_id INT = NULL
-AS
-BEGIN
-    SELECT r.room_number, rt.[description] AS room_type, rt.price
-    FROM room r
-    INNER JOIN room_type rt ON r.room_type_id = rt.room_type_id
-    WHERE
-        r.room_id NOT IN (
-            SELECT rr.room_id
-            FROM reservation_room rr
-            INNER JOIN reservation res ON rr.reservation_id = res.reservation_id
-            WHERE res.check_in <= '2023-04-01' AND res.check_out >= '2023-04-04'
-        )
-      AND ((@room_type_id is NULL) OR (r.room_type_id = @room_type_id))
-END
-
-GO
-
-
-

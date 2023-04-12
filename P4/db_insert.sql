@@ -1,5 +1,6 @@
 USE [hotelManagement];
 
+
 -- INSERT HOTEL TABLE
 INSERT INTO hotel (hotel_name, hotel_address, hotel_mail, hotel_mobile) VALUES ('Hotel A', '123 Main St, Anytown USA', 'hotelA@example.com', '555-1234');
 INSERT INTO hotel (hotel_name, hotel_address, hotel_mail, hotel_mobile) VALUES ('Hotel B', '456 Oak Rd, Anycity USA', 'hotelB@example.com', '555-5678');
@@ -7,16 +8,17 @@ INSERT INTO hotel (hotel_name, hotel_address, hotel_mail, hotel_mobile) VALUES (
 
 
 -- INSERT STAFF TABLE 
-INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES ('123456789', 'John Doe', '1990-01-01', 'Manager', '555-1234', '123 Main St, Anytown USA', '2018-01-01', 1);
-INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES ('234567890', 'Jane Smith', '1995-01-01', 'Receptionist', '555-5678', '456 Oak Rd, Anycity USA', '2019-01-01', 1);
-INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES ('345678901', 'Bob Johnson', '1985-01-01', 'Janitor', NULL, '789 Elm Blvd, Anystate USA', '2020-01-01', 2);
-INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES ('456789012', 'Sarah Lee', '1993-01-01', 'Housekeeper', '555-1111', '321 Maple Ave, Anytown USA', '2021-01-01', 2);
-INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES ('567890123', 'Joe Smith', '1980-01-01', 'Chef', '555-2222', '123 Oak St, Anytown USA', '2016-01-01', 1);
-INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES ('678901234', 'Jane Doe', '1992-01-01', 'Server', '555-3333', '456 Elm St, Anycity USA', '2017-01-01', 1);
-INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES ('789012345', 'Tom Johnson', '1988-01-01', 'Concierge', '555-4444', '789 Maple Rd, Anystate USA', '2015-01-01', 2);
-INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES ('890123456', 'Linda Lee', '1991-01-01', 'Housekeeping Manager', '555-5555', '321 Elm Ave, Anytown USA', '2022-01-01', 2);
-INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES ('901234567', 'Chris Johnson', '1983-01-01', 'Maintenance Technician', '555-6666', '123 Oak Rd, Anytown USA', '2018-01-01', 1);
-INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES ('012345678', 'Kane Lee', '1997-01-01', 'Bellhop', '555-7777', '456 Maple St, Anycity USA', '2019-01-01', 2);
+INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES (convert(varbinary,'123456789'), 'John Doe', '1990-01-01', 'Manager', '555-1234', '123 Main St, Anytown USA', '2018-01-01', 1);
+INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES (convert(varbinary,'234567890'), 'Jane Smith', '1995-01-01', 'Receptionist', '555-5678', '456 Oak Rd, Anycity USA', '2019-01-01', 1);
+INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES (convert(varbinary,'345678901'), 'Bob Johnson', '1985-01-01', 'Janitor', NULL, '789 Elm Blvd, Anystate USA', '2020-01-01', 2);
+INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES (convert(varbinary,'456789012'), 'Sarah Lee', '1993-01-01', 'Housekeeper', '555-1111', '321 Maple Ave, Anytown USA', '2021-01-01', 2);
+INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES (convert(varbinary,'567890123'), 'Joe Smith', '1980-01-01', 'Chef', '555-2222', '123 Oak St, Anytown USA', '2016-01-01', 1);
+INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES (convert(varbinary,'678901234'), 'Jane Doe', '1992-01-01', 'Server', '555-3333', '456 Elm St, Anycity USA', '2017-01-01', 1);
+INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES (convert(varbinary,'789012345'), 'Tom Johnson', '1988-01-01', 'Concierge', '555-4444', '789 Maple Rd, Anystate USA', '2015-01-01', 2);
+INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES (convert(varbinary,'890123456'), 'Linda Lee', '1991-01-01', 'Housekeeping Manager', '555-5555', '321 Elm Ave, Anytown USA', '2022-01-01', 2);
+INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES (convert(varbinary,'901234567'), 'Chris Johnson', '1983-01-01', 'Maintenance Technician', '555-6666', '123 Oak Rd, Anytown USA', '2018-01-01', 1);
+INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES (convert(varbinary,'909012121'), 'Kane Lee', '1996-01-01', 'Bellhop', '555-7234', '456 Maple St, Anycity USA', '2019-01-01', 2);
+INSERT INTO staff (staff_ssn, staff_name, staff_dob, staff_designation, staff_contact, staff_address, staff_hiring_date, hotel_id) VALUES (convert(varbinary,'102123213'), 'Bruce WAYNE', '1998-01-02', 'absds', '555-7357', '456 Apple St, Atalanata USA', '2019-01-01', 2);
 
 
 -- INSERT EVENT TABLE
@@ -47,12 +49,14 @@ INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_ad
 INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('234567890', 'Karen Johnson', '9876543221', '123 Elm St, Anytown USA', '1996-08-01');
 INSERT INTO customer (customer_ssn, customer_name, customer_contact, customer_address, customer_age) VALUES ('345678901', 'Mark Davis', '9876543222', '789 Oak St, Anytown USA', '1996-08-01');
 
+
 -- INSERT ROOM TYPE
 INSERT INTO room_type (price, [description]) VALUES (100, 'Single Room');
 INSERT INTO room_type (price, [description]) VALUES (150, 'Double Room');
 INSERT INTO room_type (price, [description]) VALUES (200, 'Deluxe Room');
 INSERT INTO room_type (price, [description]) VALUES (250, 'Suite Room');
 INSERT INTO room_type (price, [description]) VALUES (300, 'Penthouse Suite');
+
 
 -- INSERT AMENITY
 INSERT INTO amenity (amenity) VALUES ('Free Wi-Fi');
@@ -65,6 +69,7 @@ INSERT INTO amenity (amenity) VALUES ('Concierge Service');
 INSERT INTO amenity (amenity) VALUES ('Room Service');
 INSERT INTO amenity (amenity) VALUES ('Laundry Service');
 INSERT INTO amenity (amenity) VALUES ( 'Airport Shuttle');
+
 
 -- INSERT ROOM TYPE AMENITY
 INSERT INTO room_type_amenity (amenity_id, room_type_id) VALUES (1, 1);
@@ -86,6 +91,7 @@ INSERT INTO room_type_amenity (amenity_id, room_type_id) VALUES (6, 5);
 INSERT INTO room_type_amenity (amenity_id, room_type_id) VALUES (7, 5);
 INSERT INTO room_type_amenity (amenity_id, room_type_id) VALUES (8, 5);
 
+
 -- INSERT ROOM
 INSERT INTO room (room_number, [availability], room_type_id, hotel_id) VALUES (101, 1, 1, 1);
 INSERT INTO room (room_number, [availability], room_type_id, hotel_id) VALUES (102, 0, 1, 1);
@@ -99,6 +105,7 @@ INSERT INTO room (room_number, [availability], room_type_id, hotel_id) VALUES (5
 INSERT INTO room (room_number, [availability], room_type_id, hotel_id) VALUES (502, 0, 2, 2);
 INSERT INTO room (room_number, [availability], room_type_id, hotel_id) VALUES (601, 1, 3, 2);
 INSERT INTO room (room_number, [availability], room_type_id, hotel_id) VALUES (602, 0, 3, 2);
+
 
 -- RESERVATION
 INSERT INTO reservation (check_in, check_out, reservation_date, customer_id, hotel_id) VALUES ('2023-04-01', '2023-04-04', '2023-03-30', 1, 1);
@@ -142,6 +149,7 @@ INSERT INTO [payment] ([payment_date], [payment_method], [reservation_id]) VALUE
 INSERT INTO [payment] ([payment_date], [payment_method], [reservation_id]) VALUES ('2022-08-08', 'credit', 8);
 INSERT INTO [payment] ([payment_date], [payment_method], [reservation_id]) VALUES ('2022-09-19', 'debit', 9);
 INSERT INTO [payment] ([payment_date], [payment_method], [reservation_id]) VALUES ('2022-10-31', 'cash', 10);
+
 
 -- TRANSACTION 
 INSERT INTO [transaction] ([transaction_name], [transaction_date], [transaction_amount], [payment_id]) VALUES  ('Room Charge', '2022-01-01', 150, 1);
