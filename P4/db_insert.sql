@@ -130,7 +130,7 @@ INSERT INTO reservation_room (reservation_id, room_id, [status]) VALUES (1, 1, 1
 INSERT INTO reservation_room (reservation_id, room_id, [status]) VALUES (3, 2, 1);
 INSERT INTO reservation_room (reservation_id, room_id, [status]) VALUES (4, 3, 1);
 INSERT INTO reservation_room (reservation_id, room_id, [status]) VALUES (6, 4, 1);
-INSERT INTO reservation_room (reservation_id, room_id, [status]) VALUES (1, 5, 1);
+INSERT INTO reservation_room (reservation_id, room_id, [status]) VALUES (2, 5, 1);
 INSERT INTO reservation_room (reservation_id, room_id, [status]) VALUES (7, 6, 1);
 INSERT INTO reservation_room (reservation_id, room_id, [status]) VALUES (9, 7, 1);
 INSERT INTO reservation_room (reservation_id, room_id, [status]) VALUES (10, 8, 1);
